@@ -1,6 +1,9 @@
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 import re
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 AFF_LINK = "https://fktr.in/m96JCkl"
@@ -14,7 +17,7 @@ def extract_product_name(url):
 @app.route("/bot", methods=["POST"])
 def bot():
     incoming_msg = request.values.get('Body', '').strip()
-    print(f"Incoming message: {incoming_msg}")
+    logging.info(f"Incoming message: {incoming_msg}")
     resp = MessagingResponse()
     msg = resp.message()
     
@@ -26,6 +29,12 @@ def bot():
     
     return str(resp)
 
+# ✅ Ye debugging route add karo
+@app.route("/bot", methods=["GET"])
+def test():
+    return "🟢 Bot route is working!"
+
+# ✅ Code ka end — app run
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
