@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: flipkart-bot
+    env: python
+    buildCommand: ""
+    startCommand: "python main.py"
