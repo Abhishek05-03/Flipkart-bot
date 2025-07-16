@@ -3,13 +3,15 @@ from twilio.twiml.messaging_response import MessagingResponse
 import re
 import logging
 
+# Logging for debugging (logs will show in Render)
 logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 AFF_LINK = "https://fktr.in/m96JCkl"
 
 def extract_product_name(url):
-    match = re.search(r"flipkart\.com/([^/]+)-p", url)
+    # 🟢 FIXED: More accurate regex for Flipkart product URL
+    match = re.search(r"flipkart\.com/([^/]+)/p", url)
     if match:
         return match.group(1).replace("-", " ").title()
     return "Product"
@@ -29,12 +31,12 @@ def bot():
     
     return str(resp)
 
-# ✅ Ye debugging route add karo
+# ✅ For browser test (GET)
 @app.route("/bot", methods=["GET"])
 def test():
     return "🟢 Bot route is working!"
 
-# ✅ Code ka end — app run
+# ✅ App run config
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
