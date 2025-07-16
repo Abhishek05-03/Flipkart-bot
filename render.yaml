@@ -3,4 +3,8 @@ services:
     name: flipkart-bot
     env: python
     buildCommand: ""
-    startCommand: "python main.py"
+    startCommand: python main.py
+    plan: free
+    envVars:
+      - key: PORT
+        value: 5000
